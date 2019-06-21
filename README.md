@@ -1,4 +1,4 @@
-# Project Title
+# Shopping cart
 
 Shopping cart app for e-commerce build with Kotlin (Experiment code repository for implement kotlin in real world case)
 
