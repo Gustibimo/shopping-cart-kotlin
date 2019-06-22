@@ -1,19 +1,17 @@
 package com.gustibimo.shoppingcart.Adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.gustibimo.shoppingcart.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.product_row_item.view.*
-import java.text.FieldPosition
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class ProductAdapter(var context: Context, var products: List<Product> = arrayListOf()) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ProductAdapter.ViewHolder {
@@ -29,19 +27,18 @@ class ProductAdapter(var context: Context, var products: List<Product> = arrayLi
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindProduct(product: Product) {
-            val item = CartItem(product)
 
+        fun bindProduct(product: Product) {
             itemView.product_name.text = product.name
             itemView.product_price.text = "$${product.price.toString()}"
             Picasso.get().load(product.photos[0].filename).fit().into(itemView.product_image)
+
 
             itemView.removeItem.setOnClickListener { view ->
 
                 val item = CartItem(product)
 
                 ShoppingCart.removeItem(item, itemView.context)
-
                 Snackbar.make(
                     (itemView.context as MainActivity).coordinator,
                     "${product.name} removed from your cart",
@@ -49,13 +46,20 @@ class ProductAdapter(var context: Context, var products: List<Product> = arrayLi
                 ).show()
             }
 
-            ShoppingCart.addItem(item)
-            //notification
-            Snackbar.make(
-                (itemView.context as MainActivity).coordinator,
-                "${product.name} added to your cart",
-                Snackbar.LENGTH_LONG
-            ).show()
+            itemView.addToCart.setOnClickListener { view ->
+
+                val item = CartItem(product)
+
+                ShoppingCart.addItem(item)
+                //notify users
+                Snackbar.make(
+                    (itemView.context as MainActivity).coordinator,
+                    "${product.name} added to your cart",
+                    Snackbar.LENGTH_LONG
+                ).show()
+
+            }
+
         }
     }
 }
