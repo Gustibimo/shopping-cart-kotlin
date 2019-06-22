@@ -8,8 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.gustibimo.shoppingcart.Product
-import com.gustibimo.shoppingcart.R
+import com.gustibimo.shoppingcart.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.product_row_item.view.*
@@ -31,9 +30,19 @@ class ProductAdapter(var context: Context, var products: List<Product> = arrayLi
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindProduct(product: Product) {
+            val item = CartItem(product)
+
             itemView.product_name.text = product.name
             itemView.product_price.text = "$${product.price.toString()}"
             Picasso.get().load(product.photos[0].filename).fit().into(itemView.product_image)
+
+            ShoppingCart.addItem(item)
+            //notification
+            Snackbar.make(
+                (itemView.context as MainActivity).coordinator,
+                "${product.name} added to your cart",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 }
