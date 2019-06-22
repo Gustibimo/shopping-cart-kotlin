@@ -56,6 +56,16 @@
 			android:background="@color/colorAccent"
 			android:layout_gravity="end"/>
 
+		<ImageButton
+			android:id="@+id/removeItem"
+			android:tint="@android:color/white"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingVertical="4dp"
+			android:paddingHorizontal="16dp"
+			android:src="@drawable/ic_remove_shopping"
+			android:background="@color/colorPrimary"
+			card_view:targetApi="o" />
 
 	</LinearLayout>
 
