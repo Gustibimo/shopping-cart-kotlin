@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
+        apiService = APIConfig.getRetroFitClient(this).create(ApiService::class.java)
 
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         swipeRefreshLayout.isRefreshing = true

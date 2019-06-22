@@ -1,4 +1,4 @@
 package com.gustibimo.shoppingcart
 
-class CartItem {
-}
+data class CartItem (var product: Product, var quantity: Int=0)
+
