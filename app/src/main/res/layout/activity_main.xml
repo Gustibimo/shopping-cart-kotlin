@@ -72,14 +72,14 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/showBasket"
-        android:src="@drawable/ic_shopping_basket"
-        android:tint="@android:color/white"
-        android:layout_margin="16dp"
-        android:layout_gravity="bottom|end"
-        app:fabSize="normal"/>
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/showBasket"-->
+        <!--android:src="@drawable/ic_shopping_basket"-->
+        <!--android:tint="@android:color/white"-->
+        <!--android:layout_margin="16dp"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--app:fabSize="normal"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

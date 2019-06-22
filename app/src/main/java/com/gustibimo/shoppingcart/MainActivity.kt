@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Paper.init(this)
+
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
@@ -34,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         products_recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        Paper.init(this)
         cart_size.text = ShoppingCart.getShoppingCartSize().toString()
         getProducts()
 
