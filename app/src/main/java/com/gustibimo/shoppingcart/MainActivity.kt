@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import com.gustibimo.shoppingcart.Adapter.ProductAdapter
 import com.gustibimo.shoppingcart.Services.ApiService
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         products_recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
+        Paper.init(this)
+        cart_size.text = ShoppingCart.getShoppingCartSize().toString()
         getProducts()
 
     }
