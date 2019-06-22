@@ -36,6 +36,19 @@ class ProductAdapter(var context: Context, var products: List<Product> = arrayLi
             itemView.product_price.text = "$${product.price.toString()}"
             Picasso.get().load(product.photos[0].filename).fit().into(itemView.product_image)
 
+            itemView.removeItem.setOnClickListener { view ->
+
+                val item = CartItem(product)
+
+                ShoppingCart.removeItem(item, itemView.context)
+
+                Snackbar.make(
+                    (itemView.context as MainActivity).coordinator,
+                    "${product.name} removed from your cart",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+
             ShoppingCart.addItem(item)
             //notification
             Snackbar.make(
