@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.gustibimo.shoppingcart.*
 import com.squareup.picasso.Picasso
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.product_row_item.view.*
+import java.util.*
 
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")
 class ProductAdapter(var context: Context, var products: List<Product> = arrayListOf()) :
@@ -33,8 +37,25 @@ class ProductAdapter(var context: Context, var products: List<Product> = arrayLi
             itemView.product_price.text = "$${product.price.toString()}"
             Picasso.get().load(product.photos[0].filename).fit().into(itemView.product_image)
 
+            Observable.create(ObservableOnSubscribe <MutableList<CartItem>> {
 
-            itemView.removeItem.setOnClickListener { view ->
+                itemView.addToCart.setOnClickListener { view ->
+
+                    val item = CartItem(product)
+
+                    ShoppingCart.addItem(item)
+                    //notify users
+                    Snackbar.make(
+                        (itemView.context as MainActivity).coordinator,
+                        "${product.name} added to your cart",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+
+                    it.onNext(ShoppingCart.getCart())
+
+                }
+
+                itemView.removeItem.setOnClickListener { view ->
 
                 val item = CartItem(product)
 
@@ -44,19 +65,17 @@ class ProductAdapter(var context: Context, var products: List<Product> = arrayLi
                     "${product.name} removed from your cart",
                     Snackbar.LENGTH_LONG
                 ).show()
+
+                    it.onNext(ShoppingCart.getCart())
             }
 
-            itemView.addToCart.setOnClickListener { view ->
+            }).subscribe { cart ->
+                var quantity = 0
 
-                val item = CartItem(product)
+                cart.forEach { cartItem -> quantity+= cartItem.quantity  }
 
-                ShoppingCart.addItem(item)
-                //notify users
-                Snackbar.make(
-                    (itemView.context as MainActivity).coordinator,
-                    "${product.name} added to your cart",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                (itemView.context as MainActivity).cart_size.text = quantity.toString()
+                Toast.makeText(itemView.context,"Cart size $quantity", Toast.LENGTH_SHORT).show()
 
             }
 
